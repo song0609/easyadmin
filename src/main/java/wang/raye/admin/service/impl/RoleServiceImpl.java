@@ -38,7 +38,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role selectById(int id) {
-        return mapper.selectByPrimaryKey(id);
+        return mapper.selectById(id);
     }
 
     @Override

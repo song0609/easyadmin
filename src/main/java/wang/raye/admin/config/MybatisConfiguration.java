@@ -74,7 +74,7 @@ public class MybatisConfiguration implements TransactionManagementConfigurer {
 
 	@Bean
 	public PlatformTransactionManager annotationDrivenTransactionManager() {
-		logger.info("事物配置");
+		logger.info("事务配置");
 		return new DataSourceTransactionManager(dataSource);
 	}
 }

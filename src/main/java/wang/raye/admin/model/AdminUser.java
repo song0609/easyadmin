@@ -15,7 +15,7 @@ public class AdminUser {
     @Id
     private Integer id;
 
-    private Integer tenantid;
+    private Integer tenantid=0;
 
     private String name;
 

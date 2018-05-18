@@ -43,4 +43,7 @@ public interface RoleMapper extends Mapper<Role> {
 
     @Select({"SELECT COUNT(id) FROM role WHERE name LIKE #{name}"})
     int selectCountByName(String name);
+
+    @Select({"SELECT * FROM role WHERE id=#{id}"})
+    Role selectById(Integer id);
 }
