@@ -1,5 +1,7 @@
 package wang.raye.admin.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,7 @@ import java.util.List;
  */
 @Service
 public class RoleServiceImpl implements RoleService {
+    private final Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class);
 
     @Autowired
     private RoleMapper mapper;
@@ -48,7 +51,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public boolean update(Role role) {
-        return mapper.updateByPrimaryKeySelective(role) > 0;
+        int res = mapper.updateByPrimaryKeySelective(role);
+        return  res > 0;
     }
 
     @Transactional
