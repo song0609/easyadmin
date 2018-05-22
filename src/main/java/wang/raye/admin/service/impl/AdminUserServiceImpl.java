@@ -11,6 +11,7 @@ import wang.raye.admin.model.mapper.UserRoleMapper;
 import wang.raye.admin.service.AdminUserService;
 import wang.raye.admin.utils.MD5Util;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -76,16 +77,24 @@ public class AdminUserServiceImpl implements AdminUserService {
         return roles;
     }
 
+    @Transactional
     @Override
-    public boolean updateRoleMenu(String ids, int userid, int creater) {
+    public boolean updateUserRole(String ids, int userid, int creater) {
+        userRoleMapper.deleteByUserId(userid);
         if(ids.length() > 0){
             ids = ids.substring(0,ids.length()-1);
         }
-        HashMap<String,Object> map = new HashMap<String, Object>();
-        map.put("roleids",ids);
-        map.put("creator",creater);
-        map.put("userid",userid);
-        userRoleMapper.userRoleUpdate(map);
+        List<HashMap<String,Object>> roleList = new ArrayList<HashMap<String, Object>>();
+        String[] roleIdArray = null;
+        roleIdArray = ids.split(",");
+        for(int i=0;i<roleIdArray.length;i++){
+            HashMap<String,Object> map = new HashMap<String, Object>();
+            map.put("roleid",roleIdArray[i]);
+            map.put("creator",creater);
+            map.put("userid",userid);
+            roleList.add(map);
+        }
+        userRoleMapper.userRoleUpdate(roleList);
         return true;
     }
 

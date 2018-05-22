@@ -1,13 +1,11 @@
 package wang.raye.admin.model.mapper;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 import tk.mybatis.mapper.common.Mapper;
 import wang.raye.admin.model.Role;
 import wang.raye.admin.model.UserRole;
+import wang.raye.admin.service.provider.UserRoleProvider;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,8 +35,8 @@ public interface UserRoleMapper extends Mapper<UserRole> {
 
 
 
-    @Select({"CALL user_role_update(#{roleids},#{userid},#{creator})"})
-    void userRoleUpdate(HashMap<String, Object> map);
+    @InsertProvider(type = UserRoleProvider.class, method = "insertAll")
+    void userRoleUpdate(List<HashMap<String,Object>> roleList);
 
     @Delete({"DELETE from user_role WHERE userid=#{id}"})
     int deleteByUserId(int id);

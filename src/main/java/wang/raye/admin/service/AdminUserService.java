@@ -72,7 +72,7 @@ public interface AdminUserService {
      * @param ids
      * @return
      */
-    boolean updateRoleMenu(String ids, int userid, int creater);
+    boolean updateUserRole(String ids, int userid, int creater);
 
     /**
      * 更新用户密码

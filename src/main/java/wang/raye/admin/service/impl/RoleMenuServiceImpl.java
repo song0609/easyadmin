@@ -2,8 +2,10 @@ package wang.raye.admin.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import wang.raye.admin.model.Menu;
 import wang.raye.admin.model.mapper.MenuMapper;
+import wang.raye.admin.model.mapper.RoleMenuMapper;
 import wang.raye.admin.service.RoleMenuService;
 
 import java.util.ArrayList;
@@ -18,11 +20,15 @@ import java.util.List;
 public class RoleMenuServiceImpl implements RoleMenuService {
 
     @Autowired
-    private MenuMapper mapper;
+    private MenuMapper menuMapper;
+
+    @Autowired
+    private RoleMenuMapper roleMenuMapper;
+
     @Override
     public List<Menu> selectByRoleId(int id) {
         HashMap<Integer,ArrayList<Menu>> map = new HashMap<Integer, ArrayList<Menu>>();
-        List<Menu> menus = mapper.selectByRoleId(id);
+        List<Menu> menus = menuMapper.selectByRoleId(id);
         for(Menu menu : menus){
             int parentid = menu.getParentid();
             if(menu.getRoleid() != 0){
@@ -49,16 +55,24 @@ public class RoleMenuServiceImpl implements RoleMenuService {
         return map.get(0);
     }
 
+    @Transactional
     @Override
     public boolean updateRoleMenu(String ids,int roleid,int userid) {
+        roleMenuMapper.deleteByRoleid(String.valueOf(roleid));
         if(ids.length() > 0){
             ids = ids.substring(0,ids.length()-1);
         }
-        HashMap<String,Object> map = new HashMap<String, Object>();
-        map.put("menuids",ids);
-        map.put("roleid",roleid);
-        map.put("userid",userid);
-        mapper.roleMenuUpdate(map);
+        List<HashMap<String,Object>> roleMenuList = new ArrayList<HashMap<String, Object>>();
+        String[] menuIdArray = null;
+        menuIdArray = ids.split(",");
+        for(int i=0;i<menuIdArray.length;i++){
+            HashMap<String,Object> map = new HashMap<String, Object>();
+            map.put("menuid",menuIdArray[i]);
+            map.put("roleid",roleid);
+            map.put("userid",userid);
+            roleMenuList.add(map);
+        }
+        roleMenuMapper.roleMenuUpdate(roleMenuList);
         return true;
     }
 }

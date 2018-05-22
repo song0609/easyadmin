@@ -130,7 +130,7 @@ public class AdminUserController {
     @PostMapping(value = "role")
     public WebResult role(String ids,int userId,HttpSession session){
         AdminUser loginUser = (AdminUser) session.getAttribute("loginUser");
-        if(userService.updateRoleMenu(ids,userId,loginUser.getId())){
+        if(userService.updateUserRole(ids,userId,loginUser.getId())){
             return WebResult.success();
         }
         return WebResult.unKnown();
