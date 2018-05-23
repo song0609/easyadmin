@@ -245,13 +245,14 @@
 	})
          .on('selected.fu.tree', function(e,data) {
              console.log(data);
-             $("#parentId").val(data.selected[0].parentId);
+             $("#parentId").val(data.selected[0].parentid);
              $("#id").val(data.selected[0].id);
              $("#form-name").val(data.selected[0].name);
              $("#form-icon").val(data.selected[0].icon);
              $("#form-url").val(data.selected[0].url);
              $("#spinner1").val(data.selected[0].display);
-             $("#form-menu-type").val(data.selected[0].menuType);
+             $("#form-menu-type").val(data.selected[0].menutype);
+
 	})
          .on('deselected.fu.tree', function(e) {
 	})

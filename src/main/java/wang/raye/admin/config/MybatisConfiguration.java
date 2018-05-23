@@ -39,6 +39,9 @@ public class MybatisConfiguration implements TransactionManagementConfigurer {
 	@ConditionalOnMissingBean
 	public SqlSessionFactory sqlSessionFactory() {
 		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+		//org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+		//configuration.setLogImpl(org.apache.ibatis.logging.stdout.StdOutImpl.class);
+		//bean.setConfiguration(configuration);
 		bean.setDataSource(dataSource);
 		try {
 			
