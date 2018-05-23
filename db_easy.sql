@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50524
 File Encoding         : 65001
 
-Date: 2018-05-18 18:08:02
+Date: 2018-05-23 16:14:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -37,9 +37,9 @@ CREATE TABLE `admin_user` (
 -- ----------------------------
 -- Records of admin_user
 -- ----------------------------
-INSERT INTO `admin_user` VALUES ('-1', '0', 'root', 'e10adc3949ba59abbe56e057f20f883e', 'admin@raye.wang', '0', '2018-05-18 18:01:03', '1', '2018-05-18 18:01:03', '-1', '2017-12-19 03:04:59');
+INSERT INTO `admin_user` VALUES ('-1', '0', 'root', 'e10adc3949ba59abbe56e057f20f883e', 'admin@raye.wang', '0', '2018-05-23 14:18:37', '1', '2018-05-23 14:18:37', '-1', '2017-12-19 03:04:59');
 INSERT INTO `admin_user` VALUES ('3', '0', 'user1', 'e10adc3949ba59abbe56e057f20f883e', 'user1@qq.com', '0', '2018-05-18 17:14:46', '1', '2018-05-18 17:14:46', '-1', '2018-05-18 17:10:17');
-INSERT INTO `admin_user` VALUES ('5', '0', 'user2', 'E10ADC3949BA59ABBE56E057F20F883E', 'user2@qq.com', '-1', '2018-05-18 17:23:37', '1', '0000-00-00 00:00:00', '-1', '2018-05-18 17:23:37');
+INSERT INTO `admin_user` VALUES ('5', '0', 'user2', 'E10ADC3949BA59ABBE56E057F20F883E', 'user2@qq.com', '-1', '2018-05-22 14:35:34', '1', '2018-05-22 14:35:34', '-1', '2018-05-18 17:23:37');
 
 -- ----------------------------
 -- Table structure for menu
@@ -59,18 +59,17 @@ CREATE TABLE `menu` (
   `updatetime` timestamp NULL DEFAULT NULL COMMENT '更新时间',
   `flag` enum('0','1') NOT NULL DEFAULT '1' COMMENT '是否启用，0 禁用，1启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES ('1', '系统首页', '/admin/index', null, '2', '1', '0', '0', '2017-03-31 20:16:57', '0', null, '1');
+INSERT INTO `menu` VALUES ('1', '系统首页', '/admin/index', '', '2', '1', '0', '0', '2017-03-31 20:16:57', '-1', '2018-05-22 19:20:40', '1');
 INSERT INTO `menu` VALUES ('2', '修改密码', '/admin/user/updatepass', 'fa-wrench', '2', '0', '0', '0', '2017-04-05 21:33:39', '0', null, '1');
-INSERT INTO `menu` VALUES ('3', '系统配置', '12', 'fa-wrench', '0', '1', '0', '0', '2017-03-31 20:16:43', '0', '2017-04-05 20:30:53', '1');
+INSERT INTO `menu` VALUES ('3', '系统配置', '', 'fa-wrench', '0', '1', '0', '0', '2017-03-31 20:16:43', '0', '2017-04-05 20:30:53', '1');
 INSERT INTO `menu` VALUES ('4', '菜单配置', '/admin/menu', 'fa-list', '0', '1', '3', '0', '2017-03-31 20:16:45', '0', '2017-04-05 20:31:10', '1');
-INSERT INTO `menu` VALUES ('5', '角色管理', '/admin/role', null, '0', '2', '3', '0', '2017-03-31 20:16:48', '0', null, '1');
-INSERT INTO `menu` VALUES ('6', '角色权限', '/admin/role/menu', null, '2', '0', '3', '0', '2017-03-31 20:16:52', '0', null, '1');
-INSERT INTO `menu` VALUES ('7', '用户管理', '/admin/user', null, '1', '2', '3', '0', '2017-03-31 20:16:54', '0', null, '1');
+INSERT INTO `menu` VALUES ('5', '角色管理', '/admin/role', 'fa-list', '0', '2', '3', '0', '2017-03-31 20:16:48', '-1', '2018-05-23 14:21:16', '1');
+INSERT INTO `menu` VALUES ('7', '用户管理', '/admin/user', 'fa-list', '0', '3', '3', '0', '2017-03-31 20:16:54', '-1', '2018-05-23 14:21:04', '1');
 INSERT INTO `menu` VALUES ('8', '新增菜单', '/admin/menu/edit', null, '2', '0', '4', '0', '2017-03-31 20:17:01', '0', null, '1');
 INSERT INTO `menu` VALUES ('9', '删除菜单', '/admin/menu/delete', null, '2', '0', '4', '0', '2017-03-31 20:17:04', '0', null, '1');
 INSERT INTO `menu` VALUES ('10', '编辑角色', '/admin/role/edit', null, '2', '0', '5', '0', '2017-03-31 20:17:06', '0', null, '1');
@@ -79,7 +78,6 @@ INSERT INTO `menu` VALUES ('12', '角色资源管理', '/admin/role/menu', null,
 INSERT INTO `menu` VALUES ('13', '编辑用户', '/admin/user/edit', null, '2', '0', '7', '0', '2017-03-31 20:17:09', '0', null, '1');
 INSERT INTO `menu` VALUES ('14', '删除用户', '/admin/user/delete', null, '2', '0', '7', '0', '2017-03-31 20:17:10', '0', null, '1');
 INSERT INTO `menu` VALUES ('15', '用户角色管理', '/admin/user/role', null, '2', '0', '7', '0', '2017-03-31 20:17:12', '0', null, '1');
-INSERT INTO `menu` VALUES ('16', '菜单配置', '', null, '2', '0', '7', '20', '2017-04-02 11:38:28', '0', null, '1');
 
 -- ----------------------------
 -- Table structure for role
@@ -94,12 +92,13 @@ CREATE TABLE `role` (
   `updateuser` int(11) DEFAULT NULL COMMENT '更新者id',
   `updatetime` timestamp NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` VALUES ('1', '超级用户', '2018-03-05 23:00:43', '0', '拥有系统所有权限', '-1', '2018-03-05 09:00:44');
+INSERT INTO `role` VALUES ('1', '超级用户', '2018-05-21 10:02:30', '-1', '拥有系统所有权限1', '-1', '2018-03-05 09:00:44');
+INSERT INTO `role` VALUES ('3', '角色2', '2018-05-21 10:51:10', '0', '角色2', '-1', '2018-05-21 10:51:10');
 
 -- ----------------------------
 -- Table structure for role_menu
@@ -117,6 +116,14 @@ CREATE TABLE `role_menu` (
 -- ----------------------------
 -- Records of role_menu
 -- ----------------------------
+INSERT INTO `role_menu` VALUES ('3', '1', '1', '-1', '2018-05-22 14:35:26');
+INSERT INTO `role_menu` VALUES ('3', '2', '1', '-1', '2018-05-22 14:35:26');
+INSERT INTO `role_menu` VALUES ('3', '3', '1', '-1', '2018-05-22 14:35:26');
+INSERT INTO `role_menu` VALUES ('3', '7', '1', '-1', '2018-05-22 14:35:26');
+INSERT INTO `role_menu` VALUES ('3', '13', '1', '-1', '2018-05-22 14:35:26');
+INSERT INTO `role_menu` VALUES ('3', '14', '1', '-1', '2018-05-22 14:35:26');
+INSERT INTO `role_menu` VALUES ('3', '15', '1', '-1', '2018-05-22 14:35:26');
+INSERT INTO `role_menu` VALUES ('3', '16', '1', '-1', '2018-05-22 14:35:26');
 
 -- ----------------------------
 -- Table structure for tenant
@@ -153,3 +160,4 @@ CREATE TABLE `user_role` (
 -- Records of user_role
 -- ----------------------------
 INSERT INTO `user_role` VALUES ('-1', '1', '-1', '2018-03-05 23:37:04');
+INSERT INTO `user_role` VALUES ('5', '3', '-1', '2018-05-22 14:34:06');
