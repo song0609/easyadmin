@@ -22,4 +22,9 @@ public interface RoleMenuMapper extends Mapper<RoleMenu> {
     void roleMenuUpdate(List<HashMap<String,Object>> roleMenuList);
 
 
+    @Delete({
+            "delete from role_menu",
+            "where menuid = #{menuid}"
+    })
+    int deleteByMenuid(int menuid);
 }

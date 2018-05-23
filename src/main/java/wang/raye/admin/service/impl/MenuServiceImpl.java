@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wang.raye.admin.model.Menu;
 import wang.raye.admin.model.mapper.MenuMapper;
+import wang.raye.admin.model.mapper.RoleMenuMapper;
 import wang.raye.admin.service.MenuService;
 
 import java.util.ArrayList;
@@ -21,6 +22,9 @@ public class MenuServiceImpl implements MenuService {
 
 	@Autowired
 	private MenuMapper menuMapper;
+
+	@Autowired
+	private RoleMenuMapper roleMenuMapper;
 
 	public List<Menu> selectAll() {
 		HashMap<Integer,ArrayList<Menu>> map = new HashMap<Integer, ArrayList<Menu>>();
@@ -98,9 +102,8 @@ public class MenuServiceImpl implements MenuService {
     @Override
     @Transactional
     public boolean delete(int id) {
-        HashMap<String,Object> map = new HashMap<String, Object>();
-		map.put("menuid",id);
-		menuMapper.deleteMenuById(map);
+		menuMapper.deleteMenuById(id);
+		roleMenuMapper.deleteByMenuid(id);
         return true;
     }
 

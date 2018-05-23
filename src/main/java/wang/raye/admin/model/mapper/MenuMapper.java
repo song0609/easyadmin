@@ -7,7 +7,6 @@ import org.apache.ibatis.type.JdbcType;
 import tk.mybatis.mapper.common.Mapper;
 import wang.raye.admin.model.Menu;
 
-import java.util.HashMap;
 import java.util.List;
 
 public interface MenuMapper extends Mapper<Menu> {
@@ -25,7 +24,7 @@ public interface MenuMapper extends Mapper<Menu> {
      */
     @Select({"SELECT id, name, url, icon, menutype, display, parentid FROM menu WHERE id IN(",
             "SELECT menuid FROM role_menu WHERE roleid IN ",
-            "(SELECT roleid FROM user_role WHERE userid=#{userid}) OR roleid=-1) AND menutype<>'2' AND `flag`='1'"})
+            "(SELECT roleid FROM user_role WHERE userid=#{userid}) OR roleid=-1) AND menutype<>'2' AND `flag`='1' order by display desc"})
     @Results({
             @Result(column="id", property="id", jdbcType= JdbcType.INTEGER, id=true),
             @Result(column="name", property="name", jdbcType= JdbcType.VARCHAR),
@@ -54,11 +53,13 @@ public interface MenuMapper extends Mapper<Menu> {
     List<String> selectAuthoritiesByRoot();
 
 
-    @Select({"CALL delete_menu(#{menuid})"})
-    void deleteMenuById(HashMap<String, Object> map);
+    @Select({
+            "delete from role",
+            "where id = #{id}"
+    })
+    void deleteMenuById(int id);
 
     @Select({"SELECT id, name, url, icon, menutype, display, parentid, creator, createtime,",
-            " updateuser, updatetime, flag FROM menu WHERE flag='1' AND menutype<>'2'"})
-
+            " updateuser, updatetime, flag FROM menu WHERE flag='1' AND menutype<>'2' order by display desc"})
     List<Menu> selectAllEnable();
 }
