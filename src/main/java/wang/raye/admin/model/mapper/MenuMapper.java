@@ -54,7 +54,7 @@ public interface MenuMapper extends Mapper<Menu> {
 
 
     @Select({
-            "delete from role",
+            "delete from menu",
             "where id = #{id}"
     })
     void deleteMenuById(int id);

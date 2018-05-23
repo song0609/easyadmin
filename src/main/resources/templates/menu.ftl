@@ -344,12 +344,12 @@
             url: '/admin/menu/edit',
             data:{
                 id:$("#id").val(),
-                parentId:$("#parentId").val(),
+                parentid:$("#parentId").val(),
                 name:$("#form-name").val(),
                 url:$("#form-url").val(),
                 icon:$("#form-icon").val(),
                 display:$("#spinner1").val(),
-                menuType:$("#form-menu-type").val()
+                menutype:$("#form-menu-type").val()
             },
             success: function (response) {
                 if (response.code == 1){
