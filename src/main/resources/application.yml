@@ -1,6 +1,7 @@
 
 server:
   port: 8082
+  context-path: /easyadmin
 spring:
   application:
     name: admin-managee
